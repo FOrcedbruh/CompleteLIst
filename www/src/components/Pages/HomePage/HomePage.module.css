@@ -30,12 +30,24 @@
     border-radius: 20px;
     color: #fff;
 }
-.Todo div {
+.info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
     width: 50%;
+}
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px
+}
+.complete {
+    display: flex;
+    gap: 20px;
+    width: 100%;
 }
 
 

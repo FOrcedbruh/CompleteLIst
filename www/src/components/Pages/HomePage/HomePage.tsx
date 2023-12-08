@@ -1,9 +1,12 @@
 import style from './HomePage.module.css';
-import { useAppSelector } from '../../../hooks/ReduxTypeHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/ReduxTypeHooks';
 import TodoType from '../../../types/TodoType';
 import Checkbox from '@mui/material/Checkbox';
-
-
+import { completeDo, setStatusComplete } from '../../../Store/reducers/CompleteDoSlice';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { LikeDo } from '../../../Store/reducers/LikedDoSlice';
+import { useState } from 'react';
 
 
 interface DoItemProps {
@@ -13,15 +16,38 @@ interface DoItemProps {
 
 const DoItem: React.FC<DoItemProps> = ({todo}) => {
 
+    const { time } = useAppSelector(state => state.DoSlice);
+
+    const dispatch = useAppDispatch();
+
+
+    const checkboxHandle = () => {
+        if (todo.complete === false) {
+            dispatch(completeDo(todo));
+            dispatch(setStatusComplete(true));
+        }
+    }
+
+    const [like, setLike] = useState<boolean>(false);
+
+    const LikedHandler = () => {
+        dispatch(LikeDo(todo));
+        setLike(true)
+    }
+
 
     return (
         <article className={style.Todo}>
-            <div>
+            <div className={style.info}>
                 <p>Задача номер: {todo.id + 1}</p>
                 <h2>{todo.title}</h2>
                 <p>{todo.subtitle}</p>
+                <p>Создано: {time}</p>
             </div>
-            Выполнение <Checkbox style={{'color': 'chartreuse'}}/>
+            <div className={style.actions}>
+                <div onClick={LikedHandler}>{like ? <StarIcon fontSize='large' style={{'cursor': 'pointer'}}/> : <StarBorderIcon fontSize='large' style={{'cursor': 'pointer'}}/>}</div>
+                <div className={style.complete}><p>Выполнение</p> <Checkbox value={todo.complete} onClick={checkboxHandle}  style={{'color': 'chartreuse'}}/></div>
+            </div>
         </article>
     )
 }

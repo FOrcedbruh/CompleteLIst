@@ -1,10 +1,12 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import DoSlice from "./reducers/DoSlice";
-
-
+import CompleteDoSlice from "./reducers/CompleteDoSlice";
+import LikedDoSlice from "./reducers/LikedDoSlice";
 
 const rootReducer = combineReducers({
     DoSlice: DoSlice,
+    CompleteDoSlice: CompleteDoSlice,
+    LikedDoSlice: LikedDoSlice,
 })
 
 

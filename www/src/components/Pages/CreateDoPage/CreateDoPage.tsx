@@ -18,7 +18,7 @@ const CreateDoPage: React.FC = () => {
 
     interface Inputs {
         title: string,
-        subtitle: string
+        subtitle: string,
     }
 
 
@@ -34,13 +34,15 @@ const CreateDoPage: React.FC = () => {
         mode: 'onBlur'
     })
 
+
     const onSubmit = (data: any) => {
-        console.log(data);
         dispatch(createTodo(data));
-        console.log(Todos);
         reset();
+        console.log(Todos);
     }
 
+
+    
 
     return (
         <section className={style.window}>

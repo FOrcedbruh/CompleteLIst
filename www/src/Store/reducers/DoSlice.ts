@@ -3,11 +3,14 @@ import TodoType from '../../types/TodoType';
 
 
 interface StateType {
-    Todos: TodoType[]
+    Todos: TodoType[],
+    time: string,
 }
 
 const initialState: StateType = {
     Todos: [],
+    time: Date(),
+
 }
 
 
@@ -18,6 +21,7 @@ const DoSlice = createSlice({
         createTodo(state, action: PayloadAction<TodoType>) {
             state.Todos.push(action.payload);
             action.payload.id = state.Todos.length - 1;
+            action.payload.complete = false;
         },
         deleteTodo(state, action: PayloadAction<number>) {
             state.Todos.splice(action.payload);
