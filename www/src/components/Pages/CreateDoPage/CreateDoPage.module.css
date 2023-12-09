@@ -39,6 +39,8 @@ form .inputDiv input {
     border-radius: 10px;
     padding: 0 15px;
     color: cornflowerblue;
+    font-size: 16px;
+    font-weight: 600;
 }
 .error {
     width: 70%;

@@ -18,10 +18,17 @@ const LikedDoSlice = createSlice({
     reducers: {
         LikeDo(state, action: PayloadAction<TodoType>) {
             state.likedTodos.unshift(action.payload);
+        },
+        deleteLikedSlice(state, action: PayloadAction<number>) {
+            state.likedTodos.forEach((todo, i) => {
+                if (todo.id === action.payload) {
+                    state.likedTodos.splice(i, 1);
+                }
+            })
         }
     }
 })
 
 
 export default LikedDoSlice.reducer;
-export const { LikeDo } = LikedDoSlice.actions;
+export const { LikeDo, deleteLikedSlice } = LikedDoSlice.actions;

@@ -26,13 +26,11 @@ const CompleteDoSlice = createSlice({
         setStatusComplete(state, action: PayloadAction<boolean>) {
             state.complete = action.payload;
         },
-        deleteComplete(state, action: PayloadAction<number>) {
-            state.completeTodos.splice(action.payload);
-        }
+        
     }
 })
 
 
 
 export default CompleteDoSlice.reducer;
-export const { completeDo, deleteComplete, setStatusComplete } = CompleteDoSlice.actions;
+export const { completeDo, setStatusComplete } = CompleteDoSlice.actions;

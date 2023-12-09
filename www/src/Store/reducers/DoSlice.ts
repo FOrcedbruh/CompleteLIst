@@ -24,7 +24,11 @@ const DoSlice = createSlice({
             action.payload.complete = false;
         },
         deleteTodo(state, action: PayloadAction<number>) {
-            state.Todos.splice(action.payload);
+            state.Todos.forEach((todo, i) => {
+                    if (todo.id === action.payload) {
+                        state.Todos.splice(i, 1);
+                    }
+            })
         }
     }
 })

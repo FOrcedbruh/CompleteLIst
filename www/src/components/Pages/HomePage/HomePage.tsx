@@ -7,14 +7,18 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { LikeDo } from '../../../Store/reducers/LikedDoSlice';
 import { useState } from 'react';
+import Snackbar from '@mui/joy/Snackbar';
+import { deleteTodo } from '../../../Store/reducers/DoSlice';
 
 
 interface DoItemProps {
     todo: TodoType,
+    snack: boolean,
+    setSnack: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 
-const DoItem: React.FC<DoItemProps> = ({todo}) => {
+const DoItem: React.FC<DoItemProps> = ({todo, snack, setSnack}) => {
 
     const { time } = useAppSelector(state => state.DoSlice);
 
@@ -25,6 +29,8 @@ const DoItem: React.FC<DoItemProps> = ({todo}) => {
         if (todo.complete === false) {
             dispatch(completeDo(todo));
             dispatch(setStatusComplete(true));
+            dispatch(deleteTodo(todo.id));
+            setSnack(true);
         }
     }
 
@@ -56,7 +62,14 @@ const DoItem: React.FC<DoItemProps> = ({todo}) => {
 
 const HomePage: React.FC = () => {
 
-    
+    const [snack, setSnack] = useState<boolean>(false);
+
+    const onCloseSnack = (e: any, reason: string) => {
+        if (reason === 'clickaway') {
+            e.preventDefault();
+            return setSnack(false);
+        }
+    }
 
     const { Todos } = useAppSelector(state => state.DoSlice);
 
@@ -66,10 +79,13 @@ const HomePage: React.FC = () => {
             <div className={style.DoList}>
                 {Todos.length > 0 ? Todos.map(todo => {
                     return (
-                        <DoItem key={todo.id} todo={todo}/>
+                        <DoItem key={todo.id} todo={todo} snack={snack} setSnack={setSnack}/>
                     )
                 }) : <h2 style={{'color': '#fff'}}>Задач нет</h2>}
             </div>
+            <Snackbar color='success' size='sm' open={snack} onClose={onCloseSnack}>
+                <p>Задача выполнена и отправлена в раздел 'Выполненные задачи'.</p>
+            </Snackbar>
         </section>
     )
 }
