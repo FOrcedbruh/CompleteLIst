@@ -26,6 +26,13 @@ const CompleteDoSlice = createSlice({
         setStatusComplete(state, action: PayloadAction<boolean>) {
             state.complete = action.payload;
         },
+        deleteComplete(state, action: PayloadAction<number>) {
+            state.completeTodos.forEach((todo, i) => {
+                if (todo.id === action.payload) {
+                    state.completeTodos.splice(i, 1);
+                }
+            })
+        }
         
     }
 })
@@ -33,4 +40,4 @@ const CompleteDoSlice = createSlice({
 
 
 export default CompleteDoSlice.reducer;
-export const { completeDo, setStatusComplete } = CompleteDoSlice.actions;
+export const { completeDo, setStatusComplete, deleteComplete } = CompleteDoSlice.actions;

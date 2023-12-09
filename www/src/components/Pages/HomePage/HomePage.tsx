@@ -1,14 +1,18 @@
 import style from './HomePage.module.css';
 import { useAppDispatch, useAppSelector } from '../../../hooks/ReduxTypeHooks';
 import TodoType from '../../../types/TodoType';
-import Checkbox from '@mui/material/Checkbox';
 import { completeDo, setStatusComplete } from '../../../Store/reducers/CompleteDoSlice';
 import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { LikeDo } from '../../../Store/reducers/LikedDoSlice';
 import { useState } from 'react';
 import Snackbar from '@mui/joy/Snackbar';
 import { deleteTodo } from '../../../Store/reducers/DoSlice';
+import CloseIcon from '@mui/icons-material/Close';
+import { Button } from '@mui/material';
+import DoneIcon from '@mui/icons-material/Done';
+
+
+
 
 
 interface DoItemProps {
@@ -18,14 +22,14 @@ interface DoItemProps {
 }
 
 
-const DoItem: React.FC<DoItemProps> = ({todo, snack, setSnack}) => {
+const DoItem: React.FC<DoItemProps> = ({todo, setSnack}) => {
 
     const { time } = useAppSelector(state => state.DoSlice);
 
     const dispatch = useAppDispatch();
 
 
-    const checkboxHandle = () => {
+    const completeTodoHandler = () => {
         if (todo.complete === false) {
             dispatch(completeDo(todo));
             dispatch(setStatusComplete(true));
@@ -34,11 +38,14 @@ const DoItem: React.FC<DoItemProps> = ({todo, snack, setSnack}) => {
         }
     }
 
-    const [like, setLike] = useState<boolean>(false);
+    const deleteHandler = () => {
+        dispatch(deleteTodo(todo.id));
+    }
+
 
     const LikedHandler = () => {
         dispatch(LikeDo(todo));
-        setLike(true)
+        dispatch(deleteTodo(todo.id));
     }
 
 
@@ -51,8 +58,9 @@ const DoItem: React.FC<DoItemProps> = ({todo, snack, setSnack}) => {
                 <p>Создано: {time}</p>
             </div>
             <div className={style.actions}>
-                <div onClick={LikedHandler}>{like ? <StarIcon fontSize='large' style={{'cursor': 'pointer'}}/> : <StarBorderIcon fontSize='large' style={{'cursor': 'pointer'}}/>}</div>
-                <div className={style.complete}><p>Выполнение</p> <Checkbox value={todo.complete} onClick={checkboxHandle}  style={{'color': 'chartreuse'}}/></div>
+                <Button onClick={LikedHandler} style={{'color': 'yellow'}}><StarIcon fontSize='medium'/></Button>
+                <div className={style.complete}><Button onClick={completeTodoHandler}  style={{'color': 'chartreuse'}}><DoneIcon fontSize='medium'/></Button></div>
+                <Button onClick={deleteHandler} variant='text' style={{'color': 'red'}}><CloseIcon fontSize='medium'/></Button>
             </div>
         </article>
     )

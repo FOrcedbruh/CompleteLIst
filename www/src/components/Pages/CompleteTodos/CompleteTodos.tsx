@@ -1,7 +1,14 @@
 import style from './CompleteTodos.module.css';
-import { useAppSelector } from '../../../hooks/ReduxTypeHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/ReduxTypeHooks';
 import TodoType from '../../../types/TodoType';
 import AlarmOnIcon from '@mui/icons-material/AlarmOn';
+import Tooltip from '@mui/material/Tooltip';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import { Button } from '@mui/material';
+import { deleteComplete } from '../../../Store/reducers/CompleteDoSlice';
+import { createBackTodo } from '../../../Store/reducers/DoSlice';
+
+
 
 interface CompleteItemProps {
     todo: TodoType;
@@ -9,7 +16,17 @@ interface CompleteItemProps {
 
 const CompleteItem: React.FC<CompleteItemProps> = ({todo}) => {
 
-    const { time } = useAppSelector(state => state.CompleteDoSlice)
+    const { time } = useAppSelector(state => state.CompleteDoSlice);
+
+    const dispatch = useAppDispatch();
+
+
+    const BackHandler = () => {
+        dispatch(deleteComplete(todo.id));
+        console.log(todo);
+        dispatch(createBackTodo(todo));
+    }
+
 
     return (
         <article>
@@ -18,6 +35,7 @@ const CompleteItem: React.FC<CompleteItemProps> = ({todo}) => {
                 <h5>{todo.subtitle}</h5>
                 <p>Задача выполнена: {time}</p>
             </div>
+            <Tooltip title='Отменить выполнение задачи'><Button onClick={BackHandler} variant='text' style={{'color': '#fff'}}><BackspaceIcon /></Button></Tooltip>
             <AlarmOnIcon style={{'color': '#fff'}} fontSize='large'/>
         </article>
     )

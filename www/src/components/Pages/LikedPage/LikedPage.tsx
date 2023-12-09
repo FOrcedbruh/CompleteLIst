@@ -3,8 +3,9 @@ import style from './LikedPage.module.css'
 import TodoType from '../../../types/TodoType';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import { deleteLikedSlice } from '../../../Store/reducers/LikedDoSlice';
-
+import { deleteLikedTodo } from '../../../Store/reducers/LikedDoSlice';
+import { completeDo } from '../../../Store/reducers/CompleteDoSlice';
+import DoneIcon from '@mui/icons-material/Done';
 
 
 
@@ -20,7 +21,14 @@ const LikedItem: React.FC<LikedItemProps> = ({todo}) => {
     const dispatch = useAppDispatch();
 
     const DeleteItemHandler = () => {
-        dispatch(deleteLikedSlice(todo.id));
+        dispatch(deleteLikedTodo(todo.id));
+    }
+
+    const completeTodoHandler = () => {
+        if (todo.complete === false) {
+            dispatch(completeDo(todo));
+            dispatch(deleteLikedTodo(todo.id));
+        }
     }
 
     return (
@@ -30,6 +38,7 @@ const LikedItem: React.FC<LikedItemProps> = ({todo}) => {
                 <h3>{todo.subtitle}</h3>
             </div>
             <div>
+                <Button variant='text' onClick={completeTodoHandler} style={{'color': 'chartreuse'}}><DoneIcon /></Button>
                 <Button variant='text' onClick={DeleteItemHandler} style={{'color': 'red'}}><CloseIcon /></Button>
             </div>
         </section>

@@ -29,6 +29,9 @@ const DoSlice = createSlice({
                         state.Todos.splice(i, 1);
                     }
             })
+        },
+        createBackTodo(state, action: PayloadAction<TodoType>) {
+            state.Todos.push(action.payload);
         }
     }
 })
@@ -36,4 +39,4 @@ const DoSlice = createSlice({
 
 
 export default DoSlice.reducer;
-export const { createTodo, deleteTodo } = DoSlice.actions;
+export const { createTodo, deleteTodo, createBackTodo } = DoSlice.actions;
