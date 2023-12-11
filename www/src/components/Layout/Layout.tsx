@@ -2,8 +2,7 @@ import { NavLink,  Outlet, Link } from 'react-router-dom';
 import style from './Layout.module.css';
 import AddIcon from '@mui/icons-material/Add';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
-
+import DoneIcon from '@mui/icons-material/Done';
 
 
 const Layout: React.FC = () => {
@@ -12,7 +11,10 @@ const Layout: React.FC = () => {
     return (
         <>
             <header className={style.header}>
-                
+                <div className={style.logo}>
+                    <DoneIcon fontSize='large'/>
+                    List
+                </div>
                 <nav>
                    <ul>
                     <li>
@@ -29,9 +31,6 @@ const Layout: React.FC = () => {
                 <Link className={style.mainDo} to='/избранные_задачи'>
                     Избранные задачи <StarBorderIcon />
                 </Link>
-                <div>
-
-                </div>
             </header>
             <section className={style.container}>
                 <Outlet />

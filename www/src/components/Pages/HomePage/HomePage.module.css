@@ -6,6 +6,12 @@
     justify-content: center;
     align-items: center;
 }
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 .DoList {
     width: 40%;
     min-height: 70%;

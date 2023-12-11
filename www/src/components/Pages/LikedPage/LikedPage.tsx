@@ -37,6 +37,7 @@ const LikedItem: React.FC<LikedItemProps> = ({todo}) => {
                 <h2>{todo.title}</h2>
                 <h3>{todo.subtitle}</h3>
             </div>
+                <h4>{todo.time}</h4>
             <div>
                 <Button variant='text' onClick={completeTodoHandler} style={{'color': 'chartreuse'}}><DoneIcon /></Button>
                 <Button variant='text' onClick={DeleteItemHandler} style={{'color': 'red'}}><CloseIcon /></Button>

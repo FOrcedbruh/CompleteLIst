@@ -19,6 +19,7 @@ const CreateDoPage: React.FC = () => {
     interface Inputs {
         title: string,
         subtitle: string,
+        time: string,
     }
 
 
@@ -57,6 +58,13 @@ const CreateDoPage: React.FC = () => {
                 <div className={style.inputDiv}>
                     <label htmlFor="subtitle">Описание задачи</label>
                     <input type="text" {...register('subtitle')}/>
+                </div>
+                <div className={style.inputDiv}>
+                    <label htmlFor="subtitle">Время на выполнение задачи</label>
+                    <input type="text" {...register('time', {
+                        required: 'Срок на задачу?'
+                    })}/>
+                    {errors.time?.message && <div className={style.error}>{errors.time.message}</div>}
                 </div>
                 <input type="submit" value={'Создать задачу'} className={`${style.Btn} ${!isValid ? `${style.disabled}` : ''}`} disabled={!isValid}/>
             </form>

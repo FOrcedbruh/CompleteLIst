@@ -38,6 +38,7 @@ const DoItem: React.FC<DoItemProps> = ({todo, setSnack}) => {
         }
     }
 
+
     const deleteHandler = () => {
         dispatch(deleteTodo(todo.id));
     }
@@ -49,12 +50,16 @@ const DoItem: React.FC<DoItemProps> = ({todo, setSnack}) => {
     }
 
 
+    
+
+
     return (
         <article className={style.Todo}>
             <div className={style.info}>
                 <p>Задача номер: {todo.id + 1}</p>
                 <h2>{todo.title}</h2>
                 <p>{todo.subtitle}</p>
+                <p>Выполните за срок: {todo.time}</p>
                 <p>Создано: {time}</p>
             </div>
             <div className={style.actions}>
@@ -69,7 +74,9 @@ const DoItem: React.FC<DoItemProps> = ({todo, setSnack}) => {
 
 
 const HomePage: React.FC = () => {
+    
 
+    
     const [snack, setSnack] = useState<boolean>(false);
 
     const onCloseSnack = (e: any, reason: string) => {
@@ -78,6 +85,10 @@ const HomePage: React.FC = () => {
             return setSnack(false);
         }
     }
+
+
+
+
 
     const { Todos } = useAppSelector(state => state.DoSlice);
 
